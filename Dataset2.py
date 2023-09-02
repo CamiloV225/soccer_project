@@ -4,11 +4,12 @@ import json
 
 
 def connect_postgres():
-         
+    with open('C:/Users/camil/OneDrive/Documents/GitHub/soccer_project/db_config.json') as f:
+        dbfile = json.load(f)
     connection = psycopg2.connect(
-        database="Soccer",
-        user="postgres",
-        password="Ronny1212",
+        database=dbfile["database"],
+        user=dbfile["user"],
+        password=dbfile["password"],
         host="localhost",
         port=5432
     )
