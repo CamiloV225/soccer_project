@@ -48,35 +48,11 @@ def create_table():
 def delete_columns():
     connection = connect_postgres()
     cursor = connection.cursor()
-    cursor.execute("""ALTER TABLE playerstats DROP COLUMN pastoatt, 
-                   DROP pascmp, 
-                   DROP gcapasslive, 
-                   DROP gcapassdead, 
-                   DROP scapasslive, 
-                   DROP scapassdead, 
-                   DROP pascrs, 
-                   DROP born, 
-                   DROP gsot, 
-                   DROP gcadrib, 
-                   DROP scadrib, 
-                   DROP tklwon, 
-                   DROP tklw, 
-                   DROP tb, 
-                   DROP recov, 
-                   DROP shofk, 
-                   DROP blkpass, 
-                   DROP pkwon,
-                   DROP paslive,
-                   DROP pasdead,
-                   DROP ckout,
-                   DROP ckstr,
-                   DROP paslow,
-                   DROP pashigh,
-                   DROP paswhead
-
-
+    cursor.execute("""ALTER TABLE playervalue DROP COLUMN age, DROP team, DROP nationality, DROP position
+                   
                    ;""")
+    connection.commit()
 
 if __name__ == "__main__":
     connection = connect_postgres()
-    create_table()
+    delete_columns()
