@@ -118,17 +118,4 @@ def scrapping():
 if __name__ == "__main__":
   scrapping()
 
-"""  try:
-                    player[1] = ''
-                    if result in ['Nombre en país de origen:','Nombre completo:' ]:
-                        if result == 'Nombre en país de origen:':
-                            nombrecompleto = span[dato + 1].text
-                            print(f'Nombre: {nombre}')
-                            print(f'Nombre Completo: {nombrecompleto}')
-                            print(f'Valor: {valor}')
-                        elif result == 'Nombre completo:':
-                            nombrecompleto = span[dato + 1].text
-                            print(f'Nombre Completo: {nombrecompleto}')
-                except:
-                    nombrecompleto = None """
             
