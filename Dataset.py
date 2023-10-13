@@ -371,3 +371,4 @@ def delete_columns():
 if __name__ == "__main__":
     connection = connect_postgres()
     create_table()
+    delete_columns()
