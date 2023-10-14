@@ -32,7 +32,8 @@ Antes de ejecutar los scripts de análisis, asegúrate de tener instalados los s
 Además, necesitarás las siguientes bibliotecas de Python:
 
 - Pandas
-- Psycopg2
+- MySQL.Connector
+- PySQL
 - Matplotlib
 - Selenium
 
