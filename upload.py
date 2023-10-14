@@ -161,8 +161,8 @@ def insert_data():
 
     print('Insertando Info')
     for index, row in df.iterrows():
-        query = f"INSERT INTO player_info ( player, nation, club, league, age,stats_id, posicion_id, value_id) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(query, (row["Player"], row["Nation"], row["Squad"], row["Comp"], row["Age"],row["stats_id"], row["Pos"], row['value_id']))
+        query = f"INSERT INTO player_info ( player, nation, club, league, age,stats_id, posicion_id VALUES ( %s, %s, %s, %s, %s, %s, %s)"
+        cursor.execute(query, (row["Player"], row["Nation"], row["Squad"], row["Comp"], row["Age"],row["stats_id"], row["Pos"]))
     conn.commit()
 
 
