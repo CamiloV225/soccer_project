@@ -10,6 +10,11 @@ El objetivo principal de este proyecto es llevar a cabo un análisis completo de
 ## Exploración y Limpieza de Datos (EDA):
 Realizamos un proceso de exploración y limpieza de datos exhaustivo en ambos conjuntos de datos. Esto incluyó la identificación y manejo de valores nulos, la revisión de tipos de datos, y la selección de las columnas más relevantes para nuestro análisis.
 
+Adicionalmente se hizo el analisis exploratorio al conjunto de datos extraido mediante WebScrapping.
+
+## Selección de una API:
+Como requisito teniamos la seleccion de una API que nos ofreciera informacion adicional de los jugadores de futbol, debido a que la informacion de estadiscas de los jugadores no es tan abierta al publico el encontrar una API util y gratis fue imposible. Por lo que se opto por realizar WebScrapping, una forma de extraer informacion de sitios web mediante un script de python de la pagina Transfermartk.
+
 ## Análisis de Estadísticas de Jugadores:
 Utilizamos las estadísticas de jugadores para comprender mejor el rendimiento de cada jugador en el campo. Esto incluyó el análisis de goles marcados, asistencias, tarjetas amarillas, tarjetas rojas y otras métricas clave.
 
@@ -17,21 +22,25 @@ Utilizamos las estadísticas de jugadores para comprender mejor el rendimiento d
 
 Antes de ejecutar los scripts de análisis, asegúrate de tener instalados los siguientes paquetes y herramientas:
 
+(NOTA: para el uso de la libreria de selenium es necesario obtener una version de pruebas de chrome, este nos permite mediante scripts acceder a sitios, realizar acciones y extraer informacion)
+
 - Python 3.x
 - Jupyter Notebooks
 - Power BI
-- PostgreSQL
+- MySQL
 
 Además, necesitarás las siguientes bibliotecas de Python:
 
 - Pandas
-- Psycopg2
+- MySQL.Connector
+- PySQL
 - Matplotlib
+- Selenium
 
 Puedes instalar estas bibliotecas utilizando el administrador de paquetes pip:
 
 ```
-pip install pandas psycopg2 matplotlib
+pip install pandas psycopg2 matplotlib selenium
 ```
 
 La ejecucion del EDA fue realizada en 2 jupyter notebooks (uno por dataset).
