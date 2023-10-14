@@ -17,8 +17,7 @@ def cookie():
 
 def scrapping():
   players=[]
-  jugadores = driver.find_elements(By.XPATH,'.//table[@class="items"]/tbody/tr')
-  for i in range(13,20):
+  for i in range(1,20):
       print(f'################Pagina {i}################')
       driver.get(f"https://www.transfermarkt.co/spieler-statistik/wertvollstespieler/marktwertetop?page={i}")
       time.sleep(2)
