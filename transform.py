@@ -9,6 +9,8 @@ def transformstats():
     players['Pos'] = players['Pos'].apply(lambda x: x[:2] if len(x) > 2 else x)
     posiciones_dict = {'DF': 1, 'MF': 2, 'FW': 3, 'GK': 4}
     players['Pos'] = players['Pos'].replace(posiciones_dict)
+
+    players['stats_id'] = range(1, len(df1) + 1)
     players.to_csv('NewPlayerStats.csv')
   
     return players
@@ -20,11 +22,12 @@ def transform_value():
     comparacion = df["Player"].isin(df2["Player Name"])
 
     players = pd.merge(df, df2, how='left', left_on='Player', right_on='Player Name')
- 
-    result=players.drop(['Player Name','Nationality','Team','Player Age','Position','Nation','Pos','Squad','Comp','Age','MP','Starts','Min','Goals','Shots','SoT','SoT%','G/Sh','ShoDist','ShoFK','ShoPK','PKatt','PasTotCmp','PasTotCmp%','PasShoCmp%','PasMedCmp%','PasLonCmp%','Assists','PPA','CrsPA','PasAtt','PasFK','PasPress','Sw','PasCrs','CK','PaswLeft','PaswRight','PasInt','SCA','GCA','TklDef3rd','TklMid3rd','TklAtt3rd','TklDri','TklDri%','Press','Blocks','Int','Tkl+Int','TouDefPen','TouDef3rd','TouMid3rd','TouAtt3rd','DriSucc','DriAtt','DriSucc%','Carries','CarTotDist','CarPrgDist','CarDis','Rec','Rec%','CrdY','CrdR','2CrdY','Fls','Fld','Off','Crs','PKcon','OG','AerWon','AerLost','AerWon%','Pos2','BlkSh','BlkShSv'], axis = 1)
+    players["player_id"]=players["stats_id"]
+    result=players.drop(['stats_id','Player Name','Nationality','Team','Player Age','Position','Nation','Pos','Squad','Comp','Age','MP','Starts','Min','Goals','Shots','SoT','SoT%','G/Sh','ShoDist','ShoFK','ShoPK','PKatt','PasTotCmp','PasTotCmp%','PasShoCmp%','PasMedCmp%','PasLonCmp%','Assists','PPA','CrsPA','PasAtt','PasFK','PasPress','Sw','PasCrs','CK','PaswLeft','PaswRight','PasInt','SCA','GCA','TklDef3rd','TklMid3rd','TklAtt3rd','TklDri','TklDri%','Press','Blocks','Int','Tkl+Int','TouDefPen','TouDef3rd','TouMid3rd','TouAtt3rd','DriSucc','DriAtt','DriSucc%','Carries','CarTotDist','CarPrgDist','CarDis','Rec','Rec%','CrdY','CrdR','2CrdY','Fls','Fld','Off','Crs','PKcon','OG','AerWon','AerLost','AerWon%','Pos2','BlkSh','BlkShSv'], axis = 1)
     result["Value"] = result["Value"].str.replace("€", "").str.replace(".", "").str.replace("m", "000000").str.replace("k", "000")
     result = result.drop_duplicates(subset=['Player'])
-
+    ids_to_drop = [1062, 1761]
+    result = result.drop(result[result['player_id'].isin(ids_to_drop)].index)
     
     result['Value'].fillna(0, inplace=True)
     result['Value'] = result['Value'].astype('int64')
