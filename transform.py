@@ -9,23 +9,11 @@ def transformstats():
     players['Pos'] = players['Pos'].apply(lambda x: x[:2] if len(x) > 2 else x)
     posiciones_dict = {'DF': 1, 'MF': 2, 'FW': 3, 'GK': 4}
     players['Pos'] = players['Pos'].replace(posiciones_dict)
+
     players['stats_id'] = range(1, len(df1) + 1)
     players['value_id'] = players['stats_id']
-    # new_columns = {
-    # 'Rk':'id',
-    # 'Player': 'player',
-    # 'Nation':'nation',
-    # 'Pos':'pos',
-    # 'Squad':'squad',
-    # 'Comp':'comp',
-    # 'Age':'age',
-    # }
-    # players.rename(columns=new_columns, inplace=True)
-    # df = players['player']
-   
-    
     players.to_csv('NewPlayerStats.csv')
-    time.sleep(2)
+  
     return players
 
 def transform_value():
