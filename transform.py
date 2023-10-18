@@ -9,9 +9,6 @@ def transformstats():
     players['Pos'] = players['Pos'].apply(lambda x: x[:2] if len(x) > 2 else x)
     posiciones_dict = {'DF': 1, 'MF': 2, 'FW': 3, 'GK': 4}
     players['Pos'] = players['Pos'].replace(posiciones_dict)
-
-    players['stats_id'] = range(1, len(df1) + 1)
-    players['value_id'] = players['stats_id']
     players.to_csv('NewPlayerStats.csv')
   
     return players
@@ -29,6 +26,7 @@ def transform_value():
     result = result.drop_duplicates(subset=['Player'])
     ids_to_drop = [1062, 1761]
     result = result.drop(result[result['player_id'].isin(ids_to_drop)].index)
+
     result['Value'].fillna(0, inplace=True)
     result['Value'] = result['Value'].astype('int64')
     result.to_csv('combinacion.csv')
