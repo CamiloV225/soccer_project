@@ -26,13 +26,6 @@ def create_tables():
         )
         """
     cursor.execute(PlayerPosition)
-    PlayerValue = f"""CREATE TABLE IF NOT EXISTS player_value (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        player VARCHAR(255),
-        value BIGINT
-        )
-        """
-    cursor.execute(PlayerValue)
     player_stats = f"""CREATE TABLE IF NOT EXISTS player_stats (
         id INT PRIMARY KEY AUTO_INCREMENT,
         MP INT,
@@ -113,15 +106,24 @@ def create_tables():
         club VARCHAR(255),
         league VARCHAR(255),
         age INT,
-        stats_id INT,
         posicion_id INT,
-        value_id INT,
-        CONSTRAINT FK_Jugador_info_Value FOREIGN KEY (value_id) REFERENCES player_value (id),
-        CONSTRAINT FK_Jugador_info_Stats FOREIGN KEY (stats_id) REFERENCES player_stats (id),
+        CONSTRAINT FK_Jugador_info_Stats FOREIGN KEY (rk) REFERENCES player_stats (id),
         CONSTRAINT FK_Jugador_info_Posicion FOREIGN KEY (posicion_id) REFERENCES player_posicion (id)
         )
         """
     cursor.execute(player_info)
+    PlayerValue = f"""CREATE TABLE IF NOT EXISTS player_value (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        player VARCHAR(255),
+        value BIGINT,
+        player_id INT,
+        INDEX (player_id),
+        CONSTRAINT FK_Jugador_info_value FOREIGN KEY (player_id) REFERENCES player_info (rk)
+        )
+        """
+    cursor.execute(PlayerValue)
+    
+    #CONSTRAINT FK_Jugador_info_value FOREIGN KEY (value_id) REFERENCES player_value (player_id)
 
     conn.commit()
     conn.close()
@@ -151,18 +153,18 @@ def insert_data():
                 %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
         cursor.execute(query, (row["MP"], row["Starts"], row["Min"], row["Goals"], row["Shots"], row["SoT"], row["SoT%"], row["G/Sh"], row["ShoDist"], row["ShoFK"], row["ShoPK"], row["PKatt"], row["PasTotCmp"], row["PasTotCmp%"], row["PasShoCmp%"], row["PasMedCmp%"], row["PasLonCmp%"], row["Assists"], row["PPA"], row["CrsPA"], row["PasAtt"], row["PasFK"], row["PasPress"], row["Sw"], row["PasCrs"], row["CK"], row["PaswLeft"], row["PaswRight"], row["PasInt"], row["SCA"], row["GCA"], row["TklDef3rd"], row["TklMid3rd"], row["TklAtt3rd"], row["TklDri"], row["TklDri%"], row["Press"], row["Blocks"], row["BlkSh"], row["BlkShSv"], row["Int"], row["Tkl+Int"], row["TouDefPen"], row["TouDef3rd"], row["TouMid3rd"], row["TouAtt3rd"], row["DriSucc"], row["DriAtt"], row["DriSucc%"], row["Carries"], row["CarTotDist"], row["CarPrgDist"], row["CarDis"], row["Rec"], row["Rec%"], row["CrdY"], row["CrdR"], row["2CrdY"], row["Fls"], row["Fld"], row["Off"], row["Crs"], row["PKcon"], row["OG"], row["AerWon"], row["AerLost"], row["AerWon%"]))
     conn.commit()
+    
+    print('Insertando Info')
+    for index, row in df.iterrows():
+        query = f"INSERT INTO player_info ( player, nation, club, league, age, posicion_id) VALUES ( %s, %s, %s, %s, %s, %s)"
+        cursor.execute(query, (row["Player"], row["Nation"], row["Squad"], row["Comp"], row["Age"], row["Pos"]))
+    conn.commit()
 
     values = transform_value()
     print('Insertando valores')
     for index, row in values.iterrows():
         query = f"INSERT INTO player_value (player, value) VALUES ( %s, %s)"
         cursor.execute(query, (row["Player"], row["Value"]))
-    conn.commit()
-
-    print('Insertando Info')
-    for index, row in df.iterrows():
-        query = f"INSERT INTO player_info ( player, nation, club, league, age,stats_id, posicion_id VALUES ( %s, %s, %s, %s, %s, %s, %s)"
-        cursor.execute(query, (row["Player"], row["Nation"], row["Squad"], row["Comp"], row["Age"],row["stats_id"], row["Pos"]))
     conn.commit()
 
 
