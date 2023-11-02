@@ -49,13 +49,15 @@ def scrapping():
             #    try: 
             #        trophies=[]
             #        container = driver.find_element(By.XPATH, './/main/header/div[2]')            
-            #        trofeos = container.find_elements(By.XPATH, '//a')
+            #        trofeos = container.find_elements(By.XPATH, './/a/img')
             #        for trofeo in range(0, len(trofeos)-1):
             #            title = trofeo.get_attribute('title')
             #            trophies.append(title)
             #            print(f'Trofeos: {title}')
             #    except:
-            #        pass
+            #        trophies='N/A'
+            #        print('No Trophies)
+
                 time.sleep(1)
                 try:
                     for dato in range(0, len(span)):
@@ -103,7 +105,7 @@ def scrapping():
                     players.append(player)
                     print(player)
                     df=pd.DataFrame(players, columns=['nombre','valor', 'fecha', 'lugar', 'edad', 'altura', 'posicion', 'pie', 'club', 'fichado', 'contrato'])
-                    df.to_csv('Players2.csv')
+                    df.to_csv('Players.csv')
                     driver.close() 
                     driver.switch_to.window(driver.window_handles[0])
                 except Exception as e:
