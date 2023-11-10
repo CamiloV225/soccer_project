@@ -1,7 +1,7 @@
 import pandas as pd
 import mysql.connector
 import json
-from transform import transformstats,transform_value
+from transform import transformstats,merge
 
 def connect_mysql():
     with open('db_config.json') as f:
@@ -160,7 +160,7 @@ def insert_data():
         cursor.execute(query, (row["Player"], row["Nation"], row["Squad"], row["Comp"], row["Age"], row["Pos"]))
     conn.commit()
 
-    values = transform_value()
+    values = merge()
     print('Insertando valores')
     for index, row in values.iterrows():
         query = f"INSERT INTO player_value (player, value) VALUES ( %s, %s)"

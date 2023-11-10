@@ -1,6 +1,10 @@
 import pandas as pd
 import time
 
+def init():
+    player_value=transform_api()
+    player_stats=transformstats()
+    merge(player_value, player_stats) ### MERGED
 
 def transformstats():
     df1 = pd.read_csv('PlayerStats.csv', sep=';',encoding='latin-1', index_col=0)
@@ -15,11 +19,13 @@ def transformstats():
   
     return players
 
-def transform_value():
-    df = pd.read_csv('NewPlayerStats.csv', sep=',',encoding='latin-1', index_col=0)
-    df2 = pd.read_csv('PlayerValue.csv', sep=',',index_col=0)
-
-    comparacion = df["Player"].isin(df2["Player Name"])
+def merge(player_value, player_stats):
+    print('-------------------------MERGE--------------------------')
+    df=pd.DataFrame(player_stats)
+    #print(df)
+    df2=pd.DataFrame(player_value)
+    #print(df2)
+    #comparacion = df["Player"].isin(df2["Player Name"])
 
     players = pd.merge(df, df2, how='left', left_on='Player', right_on='Player Name')
     players["player_id"]=players["stats_id"]
@@ -31,9 +37,29 @@ def transform_value():
     
     result['Value'].fillna(0, inplace=True)
     result['Value'] = result['Value'].astype('int64')
-    result.to_csv('combinacion.csv')
+    result.to_csv('combinacion1.csv')
     return result
 
+def transform_api():
+    #print("------------------------------------API-----------------------------------")
+    api = pd.read_csv('Players.csv', sep=';', index_col=0)
+    df = pd.read_csv('PlayerValue.csv', sep=',', index_col=0)
+    
+    api= api.drop(['fecha','altura','pie','fichado','contrato','lugar'], axis=1)
+    api.rename(columns={'nombre':'Player Name','edad':'Player Age','valor':'Value','posicion':'Position','club':'Team'}, inplace=True)
+    new_order = ['Player Name','Player Age','Value','Team','Position']
+    api = api.reindex(columns=new_order)
+    combined_df = pd.concat([api, df])
+
+    combined_df = combined_df.sort_values(['Player Name', 'Value'], ascending=[True, False]).drop_duplicates('Player Name')
+
+
+    #print(combined_df)
+    combined_df.to_csv('mrged.csv')
+    return combined_df
+
+
 if __name__ == '__main__':
-    transformstats()
-    transform_value()
+    player_value=transform_api()
+    player_stats=transformstats()
+    merge(player_value, player_stats) ### MERGED
