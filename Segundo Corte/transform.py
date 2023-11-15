@@ -52,7 +52,6 @@ def transform_api():
     combined_df = pd.concat([api, df])
 
     combined_df = combined_df.sort_values(['Player Name', 'Value'], ascending=[True, False]).drop_duplicates('Player Name')
-    
 
 
     #print(combined_df)
