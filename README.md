@@ -27,23 +27,45 @@ Antes de ejecutar los scripts de análisis, asegúrate de tener instalados los s
 - Python 3.x
 - Jupyter Notebooks
 - Power BI
-- MySQL
+- Postgres
+- Apache Airflow
+- Apache Kafka
+- Docker
 
 Además, necesitarás las siguientes bibliotecas de Python:
 
 - Pandas
-- MySQL.Connector
-- PySQL
-- Matplotlib
+- Numpy
+- Psycopg2-binary
+- Joblib
+- SkLearn
 - Selenium
+- Airflow
+- Python-Kafka
 
 Puedes instalar estas bibliotecas utilizando el administrador de paquetes pip:
 
 ```
-pip install pandas psycopg2 matplotlib selenium
+pip install pandas selenium psycopg2-binary joblib scikit-learn airflow python-kafka
 ```
 
 La ejecucion del EDA fue realizada en 2 jupyter notebooks (uno por dataset).
 
-Por otro lado carga y eliminacion de columnas de los csv esta en los scripts de python que puedes correr en consola:
-```python3 dataset.py``` ó ```python3 dataset2.py```
+Una vez hayas copiado el repositorio, en tu maquina virtual puedes realizar el Setup de las herramientas con los siguientes pasos:
+
+## Docker:
+Para iniciar los contenedores de docker, debes de ubicarte dentro de la carpeta del repositorio y ejecutar el siguiente comando, el cual iniciara el docker compose con todas las imagenes necesarias para el proyecto:
+
+```
+sudo docker compose up -d
+```
+
+Luego deberas entrar al contenedor de Kafka para crear el topic, que es el canal de comunicación por donde se enviaran los mensajes:
+```
+docker exec -it kafka-test bash
+```
+
+Y por ultimo creas el topic con el siguiente comando:
+```
+kafka-topics --bootstrap-server kafka-test:9092 --create --topic soccer
+```
