@@ -2,7 +2,7 @@
 
 ## Rusumen
 
-Este repositorio contiene el código y la documentación para un proyecto de análisis de datos que utiliza dos conjuntos de datos relacionados con el fútbol: uno que contiene estadísticas de jugadores de fútbol para los años 2021 y 2022 y otro que proporciona información sobre el valor de cada jugador.
+Este repositorio contiene el código y la documentación para un proyecto de análisis de datos que utiliza dos conjuntos de datos relacionados con el fútbol: uno que contiene estadísticas de jugadores de fútbol para los años 2021 y 2022 y otro que proporciona información sobre el valor de cada jugador, este proyecto crea una herramienta bastante util para los clubes e incluso los mismo jugadores para evaluar su precio en el mercado en funcion de sus habilidades.
 
 ## Objetivos
 El objetivo principal de este proyecto es llevar a cabo un análisis completo de los datos de los jugadores de fútbol y sus valores para ayudar a los equipos y clubes a tomar decisiones informadas en el proceso de selección y contratación de jugadores, y crear la funcionalidad de realizar una estimación del precio de jugador basado en las estadisticas disponibles. Para lograr este objetivo, hemos realizado las siguientes tareas:
