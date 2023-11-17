@@ -61,11 +61,13 @@ sudo docker compose up -d
 ```
 
 Luego deberas entrar al contenedor de Kafka para crear el topic, que es el canal de comunicación por donde se enviaran los mensajes:
+
 ```
 docker exec -it kafka-test bash
 ```
 
 Y por ultimo creas el topic con el siguiente comando:
+
 ```
 kafka-topics --bootstrap-server kafka-test:9092 --create --topic soccer
 ```
